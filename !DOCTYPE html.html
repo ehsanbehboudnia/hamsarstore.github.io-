@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>فروشگاه عطر همسر - سفارش آنی</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Noto Naskh Arabic', serif;
+            background: linear-gradient(135deg, #f9f5ff 0%, #f0ebfa 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+        
+        .luxury-container {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(128, 0, 128, 0.15);
+            overflow: hidden;
+            border: 1px solid #e8dfff;
+        }
+        
+        .luxury-header {
+            background: linear-gradient(135deg, #8a2be2 0%, #5d2be2 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .luxury-header:before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+        
+        .luxury-header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .luxury-header p {
+            font-size: 16px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .instagram-link {
+            display: inline-flex;
+            align-items: center;
+            color: #ffdc80;
+            text-decoration: none;
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 18px;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+        
+        .instagram-link:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .instagram-link i {
+            margin-left: 8px;
+            font-size: 24px;
+        }
+        
+        .luxury-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .luxury-table th {
+            background: linear-gradient(135deg, #6a5acd 0%, #4b3baf 100%);
+            color: white;
+            padding: 16px 12px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 16px;
+            position: sticky;
+            top: 0;
+        }
+        
+        .luxury-table td {
+            padding: 14px 12px;
+            text-align: center;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.2s ease;
+        }
+        
+        .luxury-table tbody tr {
+            transition: all 0.3s ease;
+        }
+        
+        .luxury-table tbody tr:nth-child(even) {
+            background-color: #fbfaff;
+        }
+        
+        .luxury-table tbody tr:hover {
+            background-color: #f6f2ff;
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.1);
+        }
+        
+        .perfume-name {
+            font-weight: 700;
+            color: #4b0082;
+            text-align: right;
+            padding-right: 20px;
+            font-size: 17px;
+        }
+        
+        .price-cell {
+            font-weight: 600;
+            color: #6a5acd;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .price-cell:hover {
+            background: rgba(106, 90, 205, 0.1);
+            color: #4b0082;
+            transform: scale(1.05);
+        }
+        
+        .price-cell:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .price-cell:hover:after {
+            opacity: 1;
+        }
+        
+        .order-indicator {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff6b6b;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+        }
+        
+        .price-cell:hover .order-indicator {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .footer-note {
+            text-align: center;
+            padding: 20px;
+            background: #f9f7ff;
+            color: #6a5acd;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+        }
+        
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #6a5acd 0%, #4b3baf 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            font-weight: 500;
+            display: none;
+            z-index: 1000;
+            animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(20px); }
+        }
+        
+        @media (max-width: 768px) {
+            .luxury-container {
+                border-radius: 15px;
+            }
+            
+            .luxury-header h1 {
+                font-size: 24px;
+            }
+            
+            .luxury-header p {
+                font-size: 14px;
+            }
+            
+            .luxury-table th,
+            .luxury-table td {
+                padding: 10px 8px;
+                font-size: 14px;
+            }
+            
+            .perfume-name {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="luxury-container">
+        <div class="luxury-header">
+            <h1>فروشگاه اختصاصی عطرهای لاکچری همسر</h1>
+            <p>با کلیک روی هر حجم، مستقیماً به دایرکت اینستاگرام ما منتقل می‌شوید و پیام سفارش به صورت خودکار آماده ارسال خواهد بود</p>
+            <a href="https://instagram.com/hamsarperfume" class="instagram-link" target="_blank">
+                <i class="fab fa-instagram"></i> hamsarperfume@
+            </a>
+        </div>
+        
+        <table class="luxury-table">
+            <thead>
+                <tr>
+                    <th>پنجاه میل</th>
+                    <th>سی میل</th>
+                    <th>بیست میل</th>
+                    <th>ده میل</th>
+                    <th>نام عطر</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ردیف نمونه - بقیه ردیف ها به همین شکل اضافه میشوند -->
+                <tr>
+                    <td class="price-cell" onclick="orderPerfume('شنل پلاتینیوم', 'پنجاه', '۶۵۰')">
+                        <span class="order-indicator">!</span>
+                        ۶۵۰
+                    </td>
+                    <td class="price-cell" onclick="orderPerfume('شنل پلاتینیوم', 'سی', '۳۹۰')">
+                        <span class="order-indicator">!</span>
+                        ۳۹۰
+                    </td>
+                    <td class="price-cell" onclick="orderPerfume('شنل پلاتینیوم', 'بیست', '۲۹۰')">
+                        <span class="order-indicator">!</span>
+                        ۲۹۰
+                    </td>
+                    <td class="price-cell" onclick="orderPerfume('شنل پلاتینیوم', 'ده', '۱۷۰')">
+                        <span class="order-indicator">!</span>
+                        ۱۷۰
+                    </td>
+                    <td class="perfume-name">شنل پلاتینیوم</td>
+                </tr>
+                
+                <!-- بقیه ردیف ها -->
+                <tr>
+                    <td class="price-cell" onclick="orderPerfume('تایگار', 'پنجاه', '۷۰۰')">۷۰۰</td>
+                    <td class="price-cell" onclick="orderPerfume('تایگار', 'سی', '۴۳۰')">۴۳۰</td>
+                    <td class="price-cell" onclick="orderPerfume('تایگار', 'بیست', '۳۲۰')">۳۲۰</td>
+                    <td class="price-cell" onclick="orderPerfume('تایگار', 'ده', '۱۹۰')">۱۹۰</td>
+                    <td class="perfume-name">تایگار</td>
+                </tr>
+                
+                <tr>
+                    <td class="price-cell" onclick="orderPerfume('مارلی آلتیر', 'پنجاه', '۷۰۰')">۷۰۰</td>
+                    <td class="price-cell" onclick="orderPerfume('مارلی آلتیر', 'سی', '۴۳۰')">۴۳۰</td>
+                    <td class="price-cell" onclick="orderPerfume('مارلی آلتیر', 'بیست', '۳۲۰')">۳۲۰</td>
+                    <td class="price-cell" onclick="orderPerfume('مارلی آلتیر', 'ده', '۱۹۰')">۱۹۰</td>
+                    <td class="perfume-name">مارلی آلتیر</td>
+                </tr>
+                
+                <!-- ردیف های دیگر به همین ترتیب -->
+                
+                <!-- ردیف های بدون بعضی حجم ها -->
+                <tr>
+                    <td class="price-cell" onclick="orderPerfume('مارلی کالان', 'پنجاه', '۸۰۰')">۸۰۰</td>
+                    <td class="price-cell" onclick="orderPerfume('مارلی کالان', 'سی', '۴۹۰')">۴۹۰</td>
+                    <td class="price-cell disabled">-</td>
+                    <td class="price-cell disabled">-</td>
+                    <td class="perfume-name">مارلی کالان</td>
+                </tr>
+                
+                <tr>
+                    <td class="price-cell" onclick="orderPerfume('فلورنارکوتیک', 'پنجاه', '۹۵۰')">۹۵۰</td>
+                    <td class="price-cell" onclick="orderPerfume('فلورنارکوتیک', 'سی', '۵۹۰')">۵۹۰</td>
+                    <td class="price-cell disabled">-</td>
+                    <td class="price-cell disabled">-</td>
+                    <td class="perfume-name">فلورنارکوتیک</td>
+                </tr>
+                
+                <!-- بقیه ردیف ها به همین ترتیب اضافه شوند -->
+            </tbody>
+        </table>
+        
+        <div class="footer-note">
+            کلیک روی هر حجم، شما را مستقیماً به دایرکت اینستاگرام هدایت می‌کند و پیام سفارش آماده ارسال خواهد بود
+        </div>
+    </div>
+    
+    <div class="notification" id="notification">
+        در حال انتقال به اینستاگرام... پیام سفارش آماده است!
+    </div>
+
+    <script>
+        function orderPerfume(perfumeName, size, price) {
+            // نمایش نوتیفیکیشن
+            const notif = document.getElementById('notification');
+            notif.style.display = 'block';
+            notif.textContent = `در حال سفارش ${perfumeName} (${size} میل)...`;
+            
+            // ایجاد پیام سفارش
+            const message = `سلام، میخوام عطر ${perfumeName} رو در حجم ${size} میل سفارش بدم.`;
+            
+            // کدهای حجم برای استفاده در URL
+            const sizeCodes = {
+                'ده': '10ml',
+                'بیست': '20ml',
+                'سی': '30ml',
+                'پنجاه': '50ml'
+            };
+            
+            // ایجاد لینک دایرکت اینستاگرام
+            const instagramUrl = `https://www.instagram.com/direct/t/hamsarperfume?text=${encodeURIComponent(message)}`;
+            
+            // باز کردن لینک در تب جدید بعد از تاخیر کوتاه
+            setTimeout(() => {
+                window.open(instagramUrl, '_blank');
+            }, 1000);
+            
+            // مخفی کردن نوتیفیکیشن بعد از 3 ثانیه
+            setTimeout(() => {
+                notif.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
