@@ -7,102 +7,795 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=IRANSans:wght@300;400;500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* استایل‌های قبلی بدون تغییر باقی می‌مانند */
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #0f3460;
+            --accent: #e94560;
+            --accent-light: #ff7b93;
+            --light: #f0f5f9;
+            --dark: #16213e;
+            --text: #333;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            --transition: all 0.3s ease;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+        }
         
-        /* اضافه کردن استایل برای دکمه جدید */
-        .show-all-btn {
-            margin: 30px auto;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'IRANSans', 'Montserrat', sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Header Styles */
+        .header {
+            background: var(--gradient);
+            box-shadow: var(--shadow);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-left: 10px;
+            /* Placeholder for your logo */
+            background: var(--accent);
+            border-radius: 50%;
+            padding: 5px;
+        }
+        
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-desktop {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent-light);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .header-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .icon-btn {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 20px;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .icon-btn:hover {
+            color: var(--accent-light);
+            transform: translateY(-2px);
+        }
+        
+        .badge {
+            position: absolute;
+            top: -8px;
+            left: -10px;
+            background: var(--accent);
+            color: var(--white);
+            font-size: 12px;
+            font-weight: bold;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .hamburger span {
+            height: 3px;
+            width: 100%;
+            background: var(--white);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background: var(--gradient);
+            z-index: 1000;
+            transition: var(--transition);
+            padding: 80px 20px 20px;
+            overflow-y: auto;
+        }
+        
+        .mobile-menu.active {
+            right: 0;
+        }
+        
+        .mobile-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .mobile-nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 18px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+        
+        .mobile-nav-link:hover {
+            color: var(--accent-light);
+            padding-right: 10px;
+        }
+        
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: var(--white);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 500px;
+            background: linear-gradient(rgba(22, 33, 62, 0.85), rgba(22, 33, 62, 0.9)), 
+                        url('https://images.unsplash.com/photo-1595425977377-6aaf06c4457c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            color: var(--white);
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--accent-light);
+            margin-bottom: 30px;
+        }
+        
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            box-shadow: 0 5px 20px rgba(233, 69, 96, 0.3);
+        }
+        
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-top: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            z-index: 100;
+        }
+        
+        .search-results.active {
             display: block;
+        }
+        
+        .search-item {
+            padding: 12px 20px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-item:hover {
+            background: #f9f9f9;
+        }
+        
+        .search-item img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-left: 15px;
+        }
+        
+        /* Products Section */
+        .section {
+            padding: 80px 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            font-weight: 700;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
             padding: 12px 30px;
+            background: var(--white);
+            border: 2px solid var(--light);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .category-btn.active, .category-btn:hover {
+            background: var(--accent);
+            color: var(--white);
+            border-color: var(--accent);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid #f0f0f0;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-image {
+            height: 250px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .product-image img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+            transition: var(--transition);
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent);
+            color: var(--white);
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 2;
+        }
+        
+        .product-info {
+            padding: 25px 20px;
+        }
+        
+        .product-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .product-title:hover {
+            color: var(--accent);
+        }
+        
+        .product-price {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .current-price {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--accent);
+        }
+        
+        .size-options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .size-option {
+            padding: 8px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--white);
+        }
+        
+        .size-option:hover, .size-option.active {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: var(--white);
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .add-to-cart {
+            flex: 1;
             background: var(--accent);
             color: var(--white);
             border: none;
-            border-radius: 50px;
+            padding: 14px;
+            border-radius: 8px;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 16px;
-            transition: all 0.3s;
+            font-weight: 700;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 15px;
         }
         
-        .show-all-btn:hover {
+        .add-to-cart:hover {
             background: var(--accent-light);
-            transform: translateY(-3px);
         }
         
-        .all-perfumes-section {
+        .wishlist-btn {
+            width: 50px;
+            height: 50px;
+            background: var(--white);
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            font-size: 18px;
+        }
+        
+        .wishlist-btn:hover, .wishlist-btn.active {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: #fff0f3;
+        }
+        
+        /* Cart Modal */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: -420px;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background: var(--white);
+            box-shadow: -5px 0 25px rgba(0,0,0,0.15);
+            z-index: 1000;
+            transition: right 0.4s ease;
+            padding: 25px;
+            overflow-y: auto;
+        }
+        
+        .cart-modal.open {
+            right: 0;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gray-dark);
+        }
+        
+        .cart-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .cart-items {
+            margin-bottom: 35px;
+        }
+        
+        .cart-item {
+            display: flex;
+            gap: 18px;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--gray-dark);
+        }
+        
+        .cart-item-image {
+            width: 90px;
+            height: 90px;
+            background: var(--gray);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .cart-item-image img {
+            max-width: 75%;
+            max-height: 75%;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .cart-item-size {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+        
+        .cart-item-price {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 17px;
+        }
+        
+        .cart-item-remove {
+            color: #ff6b6b;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            align-self: flex-start;
+        }
+        
+        .cart-summary {
+            border-top: 1px solid var(--gray-dark);
+            padding-top: 25px;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+        
+        .generate-order {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 17px;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .generate-order:hover {
+            background: var(--accent-light);
+        }
+        
+        .order-text {
+            background: var(--gray);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 25px;
+            font-size: 15px;
             display: none;
-            padding: 40px 20px;
+            line-height: 1.8;
+            white-space: pre-line;
         }
         
-        .all-perfumes-section.active {
+        .copy-order {
+            margin-top: 15px;
+            padding: 10px 15px;
+            background: var(--black);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 14px;
+        }
+        
+        .copy-order:hover {
+            background: #333;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--gradient);
+            color: var(--white);
+            padding: 70px 0 30px;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            font-size: 22px;
+            margin-bottom: 25px;
+            color: var(--accent-light);
+            position: relative;
+            padding-bottom: 12px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+        }
+        
+        .footer-section p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: var(--transition);
             display: block;
-        }
-    </style>
-</head>
-<body>
-    <!-- کدهای قبلی بدون تغییر -->
-    
-    <!-- بعد از بخش Unisex Perfumes -->
-    <section class="all-perfumes-section" id="allPerfumes">
-        <div class="section-title">
-            <h2>همه عطرها</h2>
-        </div>
-        
-        <div class="products-grid" id="allPerfumesGrid">
-            <!-- تمام عطرها اینجا نمایش داده می‌شوند -->
-        </div>
-    </section>
-    
-    <!-- کدهای قبلی بدون تغییر -->
-
-    <script>
-        // تابع جدید برای نمایش تمام عطرها
-        function showAllPerfumes() {
-            // مخفی کردن بخش‌های قبلی
-            document.querySelectorAll('.section').forEach(section => {
-                section.style.display = 'none';
-            });
-            
-            // نمایش بخش تمام عطرها
-            document.getElementById('allPerfumes').classList.add('active');
-            
-            // پر کردن بخش تمام عطرها
-            const allPerfumesGrid = document.getElementById('allPerfumesGrid');
-            allPerfumesGrid.innerHTML = '';
-            
-            perfumes.forEach(perfume => {
-                const productCard = createProductCard(perfume);
-                allPerfumesGrid.appendChild(productCard);
-            });
+            font-size: 16px;
         }
         
-        // ایجاد دکمه نمایش تمام عطرها
-        function createShowAllButton() {
-            const showAllBtn = document.createElement('button');
-            showAllBtn.className = 'show-all-btn';
-            showAllBtn.textContent = 'نمایش همه عطرها';
-            showAllBtn.addEventListener('click', showAllPerfumes);
-            
-            // اضافه کردن دکمه به بخش Unisex
-            const unisexSection = document.getElementById('unisex');
-            unisexSection.appendChild(showAllBtn);
+        .footer-section ul li a:hover {
+            color: var(--accent-light);
         }
         
-        // به‌روزرسانی تابع init
-        function init() {
-            generateProductCards();
-            updateCartCount();
-            updateWishlistCount();
-            createShowAllButton();
-            
-            // کدهای قبلی بدون تغییر
+        .footer-contact li {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 18px;
+            align-items: flex-start;
         }
         
-        // فراخوانی تابع init
-        init();
-    </script>
-</body>
-</html>
+        .footer-contact i {
+            color: var(--accent);
+            font-size: 20px;
+            min-width: 25px;
+            margin-top: 3px;
+        }
+        
+        .contact-link {
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .contact-link:hover {
+            color: var(--accent-light);
+            text-decoration: underline;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 18px;
+            margin-top: 25px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border-radius: 50%;
+            transition: var(--transition);
+            font-size: 18px;
+        }
+        
+        .social-links a:hover {
+            background: var(--accent);
+            color: var(--white);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 15px;
+        }
         
         /* Responsive */
         @media (max-width: 992px) {
