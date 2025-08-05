@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>جزئیات عطر</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header><!-- همان هدر اصلی --></header>
+  <main id="product-detail">
+    <!-- اینجا با JS محتوا بارگذاری می‌شود -->
+  </main>
+  <script src="perfumes.js"></script>
+  <script>
+    // دریافت پارامتر id از URL
+    const params = new URLSearchParams(location.search);
+    const id = parseInt(params.get('id'));
+    const perfume = perfumes.find(p => p.id === id);
+    if (!perfume) {
+      document.getElementById('product-detail').innerHTML = '<p>محصول یافت نشد.</p>';
+    } else {
+      document.getElementById('product-detail').innerHTML = `
+        <h1>${perfume.name}</h1>
+        <img src="${perfume.image}" alt="${perfume.name}">
+        <p><strong>جنسیت:</strong> ${perfume.gender}</p>
+        <p><strong>طبع:</strong> ${perfume.scent}</p>
+        <p><strong>سال تولید:</strong> ${perfume.year}</p>
+        <div class="size-options">...دکمه‌های انتخاب حجم...</div>
+        <button id="addCart">افزودن به سبد</button>
+      `;
+      // باقی اسکریپت افزودن به سبد و انتخاب حجم
+    }
+  </script>
+</body>
+</html>
