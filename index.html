@@ -1,19 +1,6 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="fa">
 <head>
-    <style>
-  /* مشخص کردن ارتفاع و برش تصویر */
-  .product-image {
-    height: 250px;      /* ارتفاع ثابت کادر عکس */
-    overflow: hidden;   /* پنهان کردن بیرون‌زدگی تصویر */
-  }
-  /* پر کردن کامل کادر توسط تصویر */
-  .product-image img {
-    width: 100%;        /* عرض ۱۰۰٪ کادر */
-    height: 100%;       /* ارتفاع ۱۰۰٪ کادر */
-    object-fit: cover;  /* برش و پر کردن کادر با حفظ نسبت تصویر */
-  }
-</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>همسر پرفیوم - فروشگاه تخصصی عطرهای لاکچری</title>
@@ -1147,7 +1134,7 @@
         // Complete perfume data
         const perfumes = [
             // Men's perfumes
-            { id: 1, name: "شنل پلاتینیوم", category: "men", price: "170", size: "ده میل", image: "assets/assets/image/p123.jpg", badge: "جدید",
+            { id: 1, name: "شنل پلاتینیوم", category: "men", price: "170", size: "ده میل", image: "https://via.placeholder.com/300?text=Placeholder+Image", badge: "جدید", 
               sizes: [
                 {size: "ده میل", price: "170"},
                 {size: "بیست میل", price: "290"},
@@ -1357,20 +1344,31 @@
                 });
                 
                 productCard.innerHTML = `
-  <div class="product-image" style="height:250px; overflow:hidden;">
-    <img 
-      src="${perfume.image}" 
-      alt="${perfume.name}"
-      style="width:100%; height:100%; object-fit:cover;"
-    >
-    ${perfume.badge ? `<span class="product-badge">${perfume.badge}</span>` : ''}
-  </div>
-  <div class="product-info">
-    <h3 class="product-title">${perfume.name}</h3>
-    <!-- بقیهٔ محتوا -->
-  </div>
-`;
-
+                    <div class="product-image">
+                        <img src="${perfume.image}" alt="${perfume.name}">
+                        ${perfume.badge ? `<span class="product-badge">${perfume.badge}</span>` : ''}
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${perfume.name}</h3>
+                        
+                        <div class="size-options">
+                            ${sizeOptionsHTML}
+                        </div>
+                        
+                        <div class="product-price">
+                            <span class="current-price">${perfume.price},۰۰۰ تومان</span>
+                        </div>
+                        
+                        <div class="product-actions">
+                            <button class="add-to-cart">
+                                <i class="fas fa-shopping-cart"></i> افزودن به سبد
+                            </button>
+                            <button class="wishlist-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
                 
                 // Add to cart functionality
                 const addToCartBtn = productCard.querySelector('.add-to-cart');
