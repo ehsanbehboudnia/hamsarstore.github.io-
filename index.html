@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="fa">
 <head>
+    <style>
+  /* مشخص کردن ارتفاع و برش تصویر */
+  .product-image {
+    height: 250px;      /* ارتفاع ثابت کادر عکس */
+    overflow: hidden;   /* پنهان کردن بیرون‌زدگی تصویر */
+  }
+  /* پر کردن کامل کادر توسط تصویر */
+  .product-image img {
+    width: 100%;        /* عرض ۱۰۰٪ کادر */
+    height: 100%;       /* ارتفاع ۱۰۰٪ کادر */
+    object-fit: cover;  /* برش و پر کردن کادر با حفظ نسبت تصویر */
+  }
+</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>همسر پرفیوم - فروشگاه تخصصی عطرهای لاکچری</title>
